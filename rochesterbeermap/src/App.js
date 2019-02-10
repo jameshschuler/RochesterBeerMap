@@ -48,13 +48,15 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App hero-body">
-        {this.props.isFetching && <h2>Is fetching</h2>}
-        <Header />
-        <Map markers={this.props.breweries} userPos = {this.state} />
-        <ResultList breweries={this.props.breweries} />
+      <React.Fragment>
+        <div className="App hero-body">
+          {this.props.isFetching && <h2>Is fetching</h2>}
+          <Header />
+          <Map markers={this.props.breweries} userPos={this.state} />
+          <ResultList breweries={this.props.breweries} />
+        </div>
         <Footer />
-      </div>
+      </React.Fragment>
     );
   }
 }

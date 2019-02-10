@@ -1,5 +1,6 @@
 .hero-body {
   padding-top: 2rem;
+  min-height: 1000px;
 }
 
 #result-list {
@@ -12,4 +13,9 @@
 
 .ml-1 {
   margin-left: 1rem;
+}
+
+#footer {
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
 }
