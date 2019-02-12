@@ -1,17 +1,29 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
 import "bulma";
 import "./styles/main.css";
+
+import React from "react";
+import ReactDOM from "react-dom";
+import * as serviceWorker from "./serviceWorker";
+import { BrowserRouter, Route } from "react-router-dom";
 
 import { Provider } from "react-redux";
 import store from "./store";
 
+import App from "./App";
+import SuggestBreweryContainer from "./components/SuggestBreweryContainer";
+
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <BrowserRouter>
+    <Provider store={store}>
+      <Route exact path="/" component={App} />
+      <Route
+        exact
+        path="/suggest-brewery"
+        component={SuggestBreweryContainer}
+      />
+    </Provider>
+  </BrowserRouter>,
+
   document.getElementById("root")
 );
 

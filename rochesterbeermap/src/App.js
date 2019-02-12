@@ -5,6 +5,7 @@ import Map from "./components/Map";
 import { connect } from "react-redux";
 import { getBreweries } from "./store/actions/breweryActions";
 import ResultList from "./components/ResultList";
+import Loader from "./components/Loader";
 
 class App extends Component {
   state = {
@@ -28,13 +29,6 @@ class App extends Component {
             userLat: position.coords.latitude,
             userLng: position.coords.longitude
           });
-
-          console.log(
-            "latitude",
-            position.coords.latitude,
-            "longitude",
-            position.coords.longitude
-          );
         },
         error_message => {
           // TODO: do we care?
@@ -50,7 +44,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <div className="App hero-body">
-          {this.props.isFetching && <h2>Is fetching</h2>}
+          {this.props.isFetching && <Loader />}
           <Header />
           <Map markers={this.props.breweries} userPos={this.state} />
           <ResultList breweries={this.props.breweries} />
@@ -62,10 +56,9 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     isFetching: state.brewery.isFetching,
-    breweries: state.brewery.breweries
+    breweries: state.brewery.filteredBreweries
   };
 };
 
