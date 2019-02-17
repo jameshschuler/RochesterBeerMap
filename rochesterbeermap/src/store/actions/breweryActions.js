@@ -1,12 +1,12 @@
 import { db } from "../../config/firebaseConfig";
 import {
-  BEGIN_FETCH_BREWERIES,
-  FETCH_BREWERIES_SUCCESS,
-  FETCH_BREWERIES_FAILURE,
-  FILTER_BREWERIES,
-  BEGIN_ADD_BREWERY,
+  ADD_BREWERY_FAILURE,
   ADD_BREWERY_SUCCESS,
-  ADD_BREWERY_FAILURE
+  BEGIN_ADD_BREWERY,
+  BEGIN_FETCH_BREWERIES,
+  FETCH_BREWERIES_FAILURE,
+  FETCH_BREWERIES_SUCCESS,
+  FILTER_BREWERIES
 } from "../types";
 
 const beginFetchBreweries = isFetching => ({
@@ -76,13 +76,15 @@ export const addBrewerySuggestion = brewery => async (dispatch, getState) => {
 
     dispatch(
       addBrewerySuccess(false, {
-        message: "Thanks for your suggestion!"
+        message: "Thanks for your suggestion!",
+        success: true
       })
     );
   } catch (err) {
     const error = {
       message:
-        "Something went wrong while trying to save your suggestion. Please try again!"
+        "Something went wrong while trying to save your suggestion. Please try again!",
+      success: false
     };
     dispatch(addBreweryFailure(false, error));
   }
@@ -94,10 +96,11 @@ export const filterBreweries = query => (dispatch, getState) => {
   } = getState();
 
   query = query.toLowerCase();
+  let current = breweries;
   let filtered =
     query === ""
-      ? breweries
-      : breweries.filter(
+      ? current
+      : current.filter(
           brewery =>
             brewery.name.toLowerCase().includes(query) ||
             brewery.city.toLowerCase().includes(query)

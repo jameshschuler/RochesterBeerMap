@@ -1,11 +1,11 @@
 import {
-  BEGIN_FETCH_BREWERIES,
-  FETCH_BREWERIES_SUCCESS,
-  FETCH_BREWERIES_FAILURE,
-  FILTER_BREWERIES,
-  BEGIN_ADD_BREWERY,
+  ADD_BREWERY_FAILURE,
   ADD_BREWERY_SUCCESS,
-  ADD_BREWERY_FAILURE
+  BEGIN_ADD_BREWERY,
+  BEGIN_FETCH_BREWERIES,
+  FETCH_BREWERIES_FAILURE,
+  FETCH_BREWERIES_SUCCESS,
+  FILTER_BREWERIES
 } from "../types";
 
 const initialState = {
@@ -53,7 +53,7 @@ const breweryReducer = (state = initialState, action) => {
     case FILTER_BREWERIES:
       return {
         ...state,
-        filteredBreweries: action.filteredBreweries
+        filteredBreweries: [...action.filteredBreweries]
       };
     default:
       return state;

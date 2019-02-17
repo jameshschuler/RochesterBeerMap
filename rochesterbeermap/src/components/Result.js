@@ -15,43 +15,34 @@ const Result = ({
   }
 }) => {
   return (
-    <div className="column is-one-third">
+    <div className="col s12 m6 l4">
       <div className="card">
-        <header className="card-header">
-          <div className="card-header-title is-flex flex-column w-100">
-            <p>{name}</p>
-            <div className="icon-container">
-              <i className="fas fa-beer fa-fw" />
-              {hasWine && <i className="ml-1 fas fa-fw fa-wine-glass-alt" />}
-              {hasLiquor && <i className="ml-1 fas fa-fw fa-glass-martini" />}
-              {hasFood && <i className="ml-1 fas fa-fw fa-hamburger" />}
-            </div>
-          </div>
-        </header>
         <div className="card-content">
-          <div className="content">
-            <p className="is-flex align-items-center">
-              {phone}
-              <i className="ml-1 fas fa-fw fa-phone" />
-            </p>
-            <p>{address}</p>
-            <p>
-              {city}, {state} {zipcode}
-            </p>
+          <div className="icon-container">
+            <i className="fas fa-lg fa-beer fa-fw" />
+            {hasWine && <i className="fas fa-lg fa-fw fa-wine-glass-alt" />}
+            {hasLiquor && <i className="fas fa-lg fa-fw fa-glass-martini" />}
+            {hasFood && <i className="fas fa-lg fa-fw fa-hamburger" />}
           </div>
+          <span className="card-title">{name}</span>
+          <p className="">{phone}</p>
+          <p>{address}</p>
+          <p>
+            {city}, {state} {zipcode}
+          </p>
         </div>
-        <footer className="card-footer">
+        <div className="card-action">
           {website !== "" ? (
             <a
               href={website}
               target="_blank"
               rel="noopener noreferrer"
-              className="card-footer-item"
+              className=""
             >
               Learn More!
             </a>
           ) : null}
-        </footer>
+        </div>
       </div>
     </div>
   );

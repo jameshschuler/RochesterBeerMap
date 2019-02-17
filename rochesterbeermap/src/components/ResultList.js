@@ -1,19 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
 import Result from "./Result";
 
-class ResultList extends Component {
-  render() {
-    const { breweries } = this.props;
+const ResultList = ({ breweries }) => {
+  let content =
+    breweries &&
+    breweries.map((brewery, index) => {
+      return <Result key={index} brewery={brewery} />;
+    });
 
-    return (
-      <div id="result-list" className="columns is-1">
-        {breweries &&
-          breweries.map((brewery, index) => {
-            return <Result key={index} brewery={brewery} />;
-          })}
-      </div>
-    );
-  }
-}
+  return (
+    <div id="result-list" className="row">
+      {content}
+    </div>
+  );
+};
 
 export default ResultList;
