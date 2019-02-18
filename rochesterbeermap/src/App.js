@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Container from "./components/layout/Container";
 import Footer from "./components/layout/Footer";
 import Header from "./components/layout/Header";
+import Loader from "./components/Loader";
 import { getBreweries } from "./store/actions/breweryActions";
 
 class App extends Component {
@@ -33,7 +34,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* {this.props.isFetching && <Loader />} */}
+        {this.props.isFetching && <Loader />}
         <Header />
         <Container userPos={this.state} />
         <Footer />

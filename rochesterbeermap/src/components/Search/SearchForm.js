@@ -2,13 +2,9 @@ import React, { useState } from "react";
 
 const SearchForm = ({ filterResults }) => {
   const [query, setQuery] = useState("");
-  let typingTimer;
-  const doneTypingInterval = 1000;
 
   const handleKeyUp = e => {
-    clearTimeout(typingTimer);
-
-    typingTimer = setTimeout(filterResults(query), doneTypingInterval);
+    filterResults(query);
   };
 
   return (

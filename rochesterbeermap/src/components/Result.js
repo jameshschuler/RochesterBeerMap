@@ -20,9 +20,21 @@ const Result = ({
         <div className="card-content">
           <div className="icon-container">
             <i className="fas fa-lg fa-beer fa-fw" />
-            {hasWine && <i className="fas fa-lg fa-fw fa-wine-glass-alt" />}
-            {hasLiquor && <i className="fas fa-lg fa-fw fa-glass-martini" />}
-            {hasFood && <i className="fas fa-lg fa-fw fa-hamburger" />}
+            <i
+              className={`fas fa-lg fa-fw fa-wine-glass-alt ${
+                hasWine ? "" : "faded"
+              }`}
+            />
+            <i
+              className={`fas fa-lg fa-fw fa-glass-martini ${
+                hasLiquor ? "" : "faded"
+              }`}
+            />
+            <i
+              className={`fas fa-lg fa-fw fa-hamburger ${
+                hasFood ? "" : "faded"
+              }`}
+            />
           </div>
           <span className="card-title">{name}</span>
           <p className="">{phone}</p>

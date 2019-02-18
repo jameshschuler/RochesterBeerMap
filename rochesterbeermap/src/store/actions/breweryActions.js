@@ -96,11 +96,10 @@ export const filterBreweries = query => (dispatch, getState) => {
   } = getState();
 
   query = query.toLowerCase();
-  let current = breweries;
   let filtered =
     query === ""
-      ? current
-      : current.filter(
+      ? breweries
+      : breweries.filter(
           brewery =>
             brewery.name.toLowerCase().includes(query) ||
             brewery.city.toLowerCase().includes(query)

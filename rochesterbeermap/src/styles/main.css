@@ -92,6 +92,10 @@ a.active {
   cursor: pointer;
 }
 
+.faded {
+  opacity: 0.25;
+}
+
 /**
 * Search
 */

@@ -1,18 +1,17 @@
 import React from "react";
-import { compose, withProps } from "recompose";
 import {
   GoogleMap,
   Marker,
   withGoogleMap,
   withScriptjs
 } from "react-google-maps";
-
-// TODO: this needs to be moved and protected
-const apikey = "AIzaSyDgYTCbUmoMEhzsv_EdIaOZ99LHU7R2noU";
+import { compose, withProps } from "recompose";
 
 const Map = compose(
   withProps({
-    googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${apikey}&v=3.exp&libraries=geometry,drawing,places`,
+    googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${
+      process.env.REACT_APP_GOOGLE_MAP_API_KEY
+    }&v=3.exp&libraries=geometry,drawing,places`,
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div style={{ height: `600px` }} />,
     mapElement: <div style={{ height: `100%` }} />
@@ -26,7 +25,10 @@ const Map = compose(
       icon={
         "https://mt.google.com/vt/icon?psize=30&font=fonts/arialuni_t.ttf&color=ff304C13&name=icons/spotlight/spotlight-waypoint-a.png&ax=43&ay=48&text=%E2%80%A2"
       }
-      position={{ lat: userPos.userLat, lng: userPos.userLng }}
+      position={{
+        lat: parseFloat(userPos.userLat),
+        lng: parseFloat(userPos.userLng)
+      }}
     />
     {markers.map((marker, index) => {
       return (
