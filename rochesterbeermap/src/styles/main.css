@@ -28,6 +28,14 @@ a.active {
   margin-top: 2rem;
 }
 
+.hours {
+  margin-top: 1rem;
+}
+
+.hours .bold {
+  font-weight: 700;
+}
+
 #loader {
   background-color: rgba(10, 10, 10, 0.86);
   position: absolute;
@@ -47,6 +55,9 @@ a.active {
   height: 100vh;
 }
 
+/**
+* Notification
+*/
 .notification {
   padding: 1rem;
   width: 50%;

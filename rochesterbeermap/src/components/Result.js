@@ -11,8 +11,10 @@ const Result = ({
     website,
     hasFood,
     hasWine,
-    hasLiquor
-  }
+    hasLiquor,
+    hours
+  },
+  currentDay
 }) => {
   return (
     <div className="col s12 m6 l4">
@@ -42,6 +44,19 @@ const Result = ({
           <p>
             {city}, {state} {zipcode}
           </p>
+          <div className="hours">
+            {hours &&
+              Object.keys(hours).map((key, index) => {
+                return (
+                  <p
+                    key={index}
+                    className={`${key === currentDay ? "bold" : ""}`}
+                  >
+                    <span>{key}:</span> {hours[key]}
+                  </p>
+                );
+              })}
+          </div>
         </div>
         <div className="card-action">
           {website !== "" ? (

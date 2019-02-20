@@ -36,8 +36,8 @@ const Map = compose(
           title={marker.name}
           key={index}
           position={{
-            lat: parseFloat(marker.latitude),
-            lng: parseFloat(marker.longitude)
+            lat: parseFloat(marker.location._lat),
+            lng: parseFloat(marker.location._long)
           }}
         />
       );

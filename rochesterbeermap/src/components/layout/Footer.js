@@ -7,7 +7,12 @@ const Footer = () => {
         <div className="container">
           <div className="row">
             <div className="col s12 center">
-              <h4>
+              <h4>Rochester Beer Map</h4>
+              <h6>
+                An app designed to help Rochesterians and visitors explore
+                Rochester's amazing beer scene.
+              </h6>
+              <h6>
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
@@ -16,7 +21,7 @@ const Footer = () => {
                 >
                   By James Schuler
                 </a>
-              </h4>
+              </h6>
             </div>
           </div>
         </div>

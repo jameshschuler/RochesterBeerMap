@@ -6,13 +6,22 @@ import Result from "../Result";
 import SearchContainer from "../Search/SearchContainer";
 
 class Container extends Component {
-  componentDidCatch(error, info) {
-    // You can also log the error to an error reporting service
-    console.log("error log", error, info);
-  }
+  state = {
+    days: [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ]
+  };
 
   render() {
     const { breweries, userPos } = this.props;
+
+    const currentDay = this.state.days[new Date().getDay()];
 
     return (
       <React.Fragment>
@@ -22,7 +31,9 @@ class Container extends Component {
           {breweries &&
             breweries.length > 0 &&
             breweries.map((brewery, index) => {
-              return <Result key={index} brewery={brewery} />;
+              return (
+                <Result key={index} currentDay={currentDay} brewery={brewery} />
+              );
             })}
         </div>
       </React.Fragment>
