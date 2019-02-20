@@ -16,6 +16,36 @@ const Result = ({
   },
   currentDay
 }) => {
+  const sortDays = unordered => {
+    let sorter = {
+      monday: 1,
+      tuesday: 2,
+      wednesday: 3,
+      thursday: 4,
+      friday: 5,
+      saturday: 6,
+      sunday: 7
+    };
+
+    let temp = [];
+    Object.keys(unordered).forEach(key => {
+      let value = unordered[key];
+      let index = sorter[key.toLowerCase()];
+      temp[index] = {
+        key,
+        value
+      };
+    });
+
+    let orderedData = {};
+    temp.forEach(obj => {
+      orderedData[obj.key] = obj.value;
+    });
+
+    console.log(orderedData);
+    return orderedData;
+  };
+
   return (
     <div className="col s12 m6 l4">
       <div className="card">
@@ -46,13 +76,13 @@ const Result = ({
           </p>
           <div className="hours">
             {hours &&
-              Object.keys(hours).map((key, index) => {
+              Object.keys(sortDays(hours)).map((key, index) => {
                 return (
                   <p
                     key={index}
                     className={`${key === currentDay ? "bold" : ""}`}
                   >
-                    <span>{key}:</span> {hours[key]}
+                    <span>{key}:</span> <span>{hours[key]}</span>
                   </p>
                 );
               })}

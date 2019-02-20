@@ -39,7 +39,9 @@ class SuggestBreweryContainer extends Component {
               />
             )}
 
-            <h3 className="center">Suggest New Brewery</h3>
+            <h3 className="center grey-text text-darken-3">
+              Suggest New Brewery
+            </h3>
           </div>
         </div>
 

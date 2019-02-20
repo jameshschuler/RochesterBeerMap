@@ -12,10 +12,6 @@ nav .brand-logo {
   padding: 0 15px;
 }
 
-a.active {
-  background-color: #546e7a;
-}
-
 .checkbox-container {
   display: flex;
 }
@@ -30,6 +26,12 @@ a.active {
 
 .hours {
   margin-top: 1rem;
+  width: 75%;
+}
+
+.hours p {
+  display: flex;
+  justify-content: space-between;
 }
 
 .hours .bold {
@@ -107,12 +109,24 @@ a.active {
   opacity: 0.25;
 }
 
+.mr {
+  margin-right: 0.5rem;
+}
+
+.mt-3 {
+  margin-top: 3rem;
+}
+
 /**
 * Search
 */
 #search-form {
   width: 75%;
   margin: 0 auto;
+}
+
+#not-found-page {
+  margin-top: 10rem;
 }
 
 /**
@@ -129,5 +143,9 @@ a.active {
 
   #btn-container {
     text-align: center;
+  }
+
+  .hours {
+    width: 100%;
   }
 }
