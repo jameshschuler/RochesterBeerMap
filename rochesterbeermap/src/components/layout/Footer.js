@@ -2,8 +2,8 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="page-footer orange darken-1">
-      <div className="footer-copyright orange darken-1">
+    <footer className="page-footer amber accent-4">
+      <div className="footer-copyright amber accent-4">
         <div className="container">
           <div className="row">
             <div className="col s12 center">

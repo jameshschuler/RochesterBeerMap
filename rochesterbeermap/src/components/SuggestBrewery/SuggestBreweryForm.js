@@ -13,47 +13,69 @@ const SuggestBreweryForm = ({ submitBrewery }) => {
   const [food, setFood] = useState(false);
   const [wine, setWine] = useState(false);
   const [liquor, setLiquor] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState({
+    name: "",
+    city: "",
+    state: ""
+  });
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    if (name === "") {
-      setError("Please enter a brewery name.");
-      window.scrollTo(0, 0);
+    let hasError = false;
+    const errors = {};
 
-      return;
-    } else {
-      setError("");
+    if (name === "") {
+      errors.name = "Please enter a brewery name.";
+      hasError = true;
+    }
+    if (city === "") {
+      errors.city = "Please enter a city.";
+      hasError = true;
+    }
+    if (state === "") {
+      errors.state = "Please enter a state.";
+      hasError = true;
     }
 
-    submitBrewery({
-      name,
-      phone,
-      address,
-      city,
-      state,
-      zipcode,
-      website,
-      food,
-      wine,
-      liquor,
-      latitude,
-      longitude
-    });
+    if (hasError) {
+      window.scrollTo(0, 0);
+      setError(errors);
+    } else {
+      setError({
+        name: "",
+        city: "",
+        state: ""
+      });
 
-    setName("");
-    setPhone("");
-    setAddress("");
-    setCity("");
-    setState("");
-    setZipcode("");
-    setWebsite("");
-    setLatitude("");
-    setLongitude("");
-    setWine(false);
-    setFood(false);
-    setLiquor(false);
+      submitBrewery({
+        name,
+        phone,
+        address,
+        city,
+        state,
+        zipcode,
+        website,
+        food,
+        wine,
+        liquor,
+        latitude,
+        longitude
+      });
+
+      setName("");
+      setPhone("");
+      setAddress("");
+      setCity("");
+      setState("");
+      setZipcode("");
+      setWebsite("");
+      setLatitude("");
+      setLongitude("");
+      setWine(false);
+      setFood(false);
+      setLiquor(false);
+    }
   };
 
   return (
@@ -62,7 +84,7 @@ const SuggestBreweryForm = ({ submitBrewery }) => {
         autoComplete="off"
         id="suggest-brewery-form"
         className="col s12"
-        onSubmit={e => handleSubmit(e)}
+        onSubmit={handleSubmit}
       >
         <div className="row">
           <div className="input-field col s12 m6 offset-m3 l6 offset-l3">
@@ -75,7 +97,7 @@ const SuggestBreweryForm = ({ submitBrewery }) => {
               onChange={e => setName(e.target.value)}
             />
             <label htmlFor="name">Name</label>
-            <span className="red-text lighten-1">{error}</span>
+            <span className="red-text lighten-1">{error["name"]}</span>
           </div>
         </div>
         <div className="row">
@@ -113,6 +135,7 @@ const SuggestBreweryForm = ({ submitBrewery }) => {
               onChange={e => setCity(e.target.value)}
             />
             <label htmlFor="name">City</label>
+            <span className="red-text lighten-1">{error["city"]}</span>
           </div>
         </div>
         <div className="row">
@@ -125,6 +148,7 @@ const SuggestBreweryForm = ({ submitBrewery }) => {
               onChange={e => setState(e.target.value)}
             />
             <label htmlFor="name">State</label>
+            <span className="red-text lighten-1">{error["state"]}</span>
           </div>
         </div>
         <div className="row">
@@ -216,7 +240,7 @@ const SuggestBreweryForm = ({ submitBrewery }) => {
         </div>
         <div className="row">
           <div className="col s12 m6 offset-m3" id="btn-container">
-            <button className="btn" type="submit" name="action">
+            <button className="btn blue lighten-1" type="submit" name="action">
               Submit
               <i className="material-icons right">send</i>
             </button>

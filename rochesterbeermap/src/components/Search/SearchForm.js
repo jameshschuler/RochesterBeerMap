@@ -18,7 +18,7 @@ const SearchForm = ({ filterResults }) => {
           className="input"
           type="text"
           name="query"
-          placeholder="Find a brewery"
+          placeholder="Filter by city or brewery name"
         />
         <i className="material-icons prefix">search</i>
       </div>

@@ -33,7 +33,9 @@ const Map = compose(
     {markers.map((marker, index) => {
       return (
         <Marker
-          title={marker.name}
+          title={`${marker.name}\n${marker.address}\n${marker.city}, ${
+            marker.state
+          } ${marker.zipcode}`}
           key={index}
           position={{
             lat: parseFloat(marker.location._lat),

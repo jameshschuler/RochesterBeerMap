@@ -42,7 +42,6 @@ const Result = ({
       orderedData[obj.key] = obj.value;
     });
 
-    console.log(orderedData);
     return orderedData;
   };
 
