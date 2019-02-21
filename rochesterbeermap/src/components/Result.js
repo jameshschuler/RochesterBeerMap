@@ -1,4 +1,5 @@
 import React from "react";
+import { sortDays } from "../utils";
 
 const Result = ({
   brewery: {
@@ -12,39 +13,17 @@ const Result = ({
     hasFood,
     hasWine,
     hasLiquor,
-    hours
+    hours,
+    location: { _lat, _long }
   },
-  currentDay
+  currentDay,
+  userPos: { userLat, userLng }
 }) => {
-  const sortDays = unordered => {
-    let sorter = {
-      monday: 1,
-      tuesday: 2,
-      wednesday: 3,
-      thursday: 4,
-      friday: 5,
-      saturday: 6,
-      sunday: 7
-    };
-
-    let temp = [];
-    Object.keys(unordered).forEach(key => {
-      let value = unordered[key];
-      let index = sorter[key.toLowerCase()];
-      temp[index] = {
-        key,
-        value
-      };
-    });
-
-    let orderedData = {};
-    temp.forEach(obj => {
-      orderedData[obj.key] = obj.value;
-    });
-
-    return orderedData;
-  };
-
+  let directionsLink = `https://www.google.com/maps/dir/?api=1`;
+  if (userLat !== null && userLng !== null) {
+    directionsLink += `&origin=${userLat},${userLng}`;
+  }
+  directionsLink += `&destination=${_lat},${_long}`;
   return (
     <div className="col s12 m6 l4">
       <div className="card">
@@ -66,6 +45,9 @@ const Result = ({
                 hasFood ? "" : "faded"
               }`}
             />
+            <a href={directionsLink} target="_blank" rel="noopener noreferrer">
+              <i className="right fas fa-lg fa-directions fa-fw blue-text lighten-1 get-directions" />
+            </a>
           </div>
           <span className="card-title">{name}</span>
           <p className="">{phone}</p>

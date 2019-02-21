@@ -20,6 +20,9 @@ nav .brand-logo {
   margin-right: 2rem;
 }
 
+/**
+* Result styles
+*/
 #result-list {
   margin-top: 2rem;
 }
@@ -36,6 +39,21 @@ nav .brand-logo {
 
 .hours .bold {
   font-weight: 700;
+}
+
+.get-directions:hover {
+  cursor: pointer;
+  color: #1565c0;
+}
+
+/**
+* Googlg maps InfoWindow overrides
+*/
+.gm-style-iw-d {
+  height: 50px;
+  width: 100px;
+  padding: 0;
+  overflow: hidden !important;
 }
 
 #loader {

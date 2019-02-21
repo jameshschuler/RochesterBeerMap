@@ -32,7 +32,12 @@ class Container extends Component {
             breweries.length > 0 &&
             breweries.map((brewery, index) => {
               return (
-                <Result key={index} currentDay={currentDay} brewery={brewery} />
+                <Result
+                  key={index}
+                  userPos={userPos}
+                  currentDay={currentDay}
+                  brewery={brewery}
+                />
               );
             })}
         </div>

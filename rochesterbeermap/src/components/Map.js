@@ -5,9 +5,20 @@ import {
   withGoogleMap,
   withScriptjs
 } from "react-google-maps";
-import { compose, withProps } from "recompose";
+import { compose, withProps, withStateHandlers } from "recompose";
+import InfoWindowMarker from "./InfoWindowMarker";
 
 const Map = compose(
+  withStateHandlers(
+    () => ({
+      isOpen: false
+    }),
+    {
+      onToggleOpen: ({ isOpen }) => () => ({
+        isOpen: !isOpen
+      })
+    }
+  ),
   withProps({
     googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${
       process.env.REACT_APP_GOOGLE_MAP_API_KEY
@@ -18,7 +29,7 @@ const Map = compose(
   }),
   withScriptjs,
   withGoogleMap
-)(({ markers, userPos }) => (
+)(({ markers, userPos, isOpen, onToggleOpen }) => (
   <GoogleMap defaultZoom={10} defaultCenter={{ lat: 43.1566, lng: -77.6088 }}>
     <Marker
       title={"You!"}
@@ -32,11 +43,9 @@ const Map = compose(
     />
     {markers.map((marker, index) => {
       return (
-        <Marker
-          title={`${marker.name}\n${marker.address}\n${marker.city}, ${
-            marker.state
-          } ${marker.zipcode}`}
+        <InfoWindowMarker
           key={index}
+          marker={marker}
           position={{
             lat: parseFloat(marker.location._lat),
             lng: parseFloat(marker.location._long)
