@@ -1,27 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addBrewerySuggestion } from "../../store/actions/breweryActions";
-import Footer from "../layout/Footer";
-import Header from "../layout/Header";
-import Loader from "../Loader";
-import Notification from "../Notification";
+import { addBrewerySuggestion } from "../../../store/actions/breweryActions";
+import Loader from "../../Loader";
+import Notification from "../../Notification";
 import SuggestBreweryForm from "./SuggestBreweryForm";
 
-class SuggestBreweryContainer extends Component {
+class SuggestBreweryPage extends Component {
   submitBrewery = async brewery => {
     await this.props.addBrewerySuggestion(brewery);
 
     window.scrollTo(0, 0);
   };
 
+  componentDidCatch(error, info) {
+    this.location.push("/error");
+  }
+
   render() {
     const { isFetching, error, response } = this.props;
 
     return (
-      <div className="App">
+      <React.Fragment>
         {isFetching && <Loader />}
-        <Header />
-
         <div className="row">
           <div className="col s12">
             {response && response.success === true && (
@@ -46,9 +46,7 @@ class SuggestBreweryContainer extends Component {
         </div>
 
         <SuggestBreweryForm submitBrewery={this.submitBrewery} />
-
-        <Footer />
-      </div>
+      </React.Fragment>
     );
   }
 }
@@ -66,4 +64,4 @@ export default connect(
   {
     addBrewerySuggestion
   }
-)(SuggestBreweryContainer);
+)(SuggestBreweryPage);

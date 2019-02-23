@@ -2,9 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import App from "./App";
-import NotFound from "./components/NotFound";
-import SuggestBreweryContainer from "./components/SuggestBrewery/SuggestBreweryContainer";
+import Footer from "./components/layout/Footer";
+import Header from "./components/layout/Header";
+import Error from "./components/pages/Error";
+import NotFound from "./components/pages/NotFound";
+import SearchPage from "./components/pages/search/SearchPage";
+import SuggestBreweryPage from "./components/pages/suggest-brewery/SuggestBreweryPage";
 import * as serviceWorker from "./serviceWorker";
 import store from "./store";
 import "./styles/main.css";
@@ -12,15 +15,14 @@ import "./styles/main.css";
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
+      <Header />
       <Switch>
-        <Route exact path="/" component={App} />
-        <Route
-          exact
-          path="/suggest-brewery"
-          component={SuggestBreweryContainer}
-        />
+        <Route exact path="/" component={SearchPage} />
+        <Route exact path="/suggest-brewery" component={SuggestBreweryPage} />
+        <Route exact path="/error" component={Error} />
         <Route component={NotFound} />
       </Switch>
+      <Footer />
     </Provider>
   </BrowserRouter>,
 

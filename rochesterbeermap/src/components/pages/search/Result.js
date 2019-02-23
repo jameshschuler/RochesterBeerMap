@@ -1,5 +1,9 @@
 import React from "react";
-import { sortDays } from "../utils";
+import {
+  generateDirectionsLink,
+  getCurrentDay,
+  sortDays
+} from "../../../utils";
 
 const Result = ({
   brewery: {
@@ -14,16 +18,12 @@ const Result = ({
     hasWine,
     hasLiquor,
     hours,
-    location: { _lat, _long }
+    location
   },
-  currentDay,
-  userPos: { userLat, userLng }
+  userPosition
 }) => {
-  let directionsLink = `https://www.google.com/maps/dir/?api=1`;
-  if (userLat !== null && userLng !== null) {
-    directionsLink += `&origin=${userLat},${userLng}`;
-  }
-  directionsLink += `&destination=${_lat},${_long}`;
+  let directionsLink = generateDirectionsLink(userPosition, location);
+
   return (
     <div className="col s12 m6 l4">
       <div className="card">
@@ -50,18 +50,29 @@ const Result = ({
             </a>
           </div>
           <span className="card-title">{name}</span>
-          <p className="">{phone}</p>
-          <p>{address}</p>
-          <p>
-            {city}, {state} {zipcode}
-          </p>
+          <div className="location-container">
+            <div className="address-container">
+              <p>{phone}</p>
+              <p>{address}</p>
+              <p>
+                {city}, {state} {zipcode}
+              </p>
+            </div>
+            {/* {data && (
+              <div className="distance-container">
+                <p>{data.distance}</p>
+                <p>{data.duration}</p>
+              </div>
+            )} */}
+          </div>
+
           <div className="hours">
             {hours &&
               Object.keys(sortDays(hours)).map((key, index) => {
                 return (
                   <p
                     key={index}
-                    className={`${key === currentDay ? "bold" : ""}`}
+                    className={`${key === getCurrentDay() ? "bold" : ""}`}
                   >
                     <span>{key}:</span> <span>{hours[key]}</span>
                   </p>

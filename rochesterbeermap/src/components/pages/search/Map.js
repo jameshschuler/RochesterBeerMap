@@ -5,20 +5,10 @@ import {
   withGoogleMap,
   withScriptjs
 } from "react-google-maps";
-import { compose, withProps, withStateHandlers } from "recompose";
+import { compose, withProps } from "recompose";
 import InfoWindowMarker from "./InfoWindowMarker";
 
 const Map = compose(
-  withStateHandlers(
-    () => ({
-      isOpen: false
-    }),
-    {
-      onToggleOpen: ({ isOpen }) => () => ({
-        isOpen: !isOpen
-      })
-    }
-  ),
   withProps({
     googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${
       process.env.REACT_APP_GOOGLE_MAP_API_KEY
@@ -29,18 +19,21 @@ const Map = compose(
   }),
   withScriptjs,
   withGoogleMap
-)(({ markers, userPos, isOpen, onToggleOpen }) => (
+)(({ markers, userPosition }) => (
   <GoogleMap defaultZoom={10} defaultCenter={{ lat: 43.1566, lng: -77.6088 }}>
-    <Marker
-      title={"You!"}
-      icon={
-        "https://mt.google.com/vt/icon?psize=30&font=fonts/arialuni_t.ttf&color=ff304C13&name=icons/spotlight/spotlight-waypoint-a.png&ax=43&ay=48&text=%E2%80%A2"
-      }
-      position={{
-        lat: parseFloat(userPos.userLat),
-        lng: parseFloat(userPos.userLng)
-      }}
-    />
+    {userPosition && (
+      <Marker
+        title={"You!"}
+        icon={
+          "https://mt.google.com/vt/icon?psize=30&font=fonts/arialuni_t.ttf&color=ff304C13&name=icons/spotlight/spotlight-waypoint-a.png&ax=43&ay=48&text=%E2%80%A2"
+        }
+        position={{
+          lat: parseFloat(userPosition.lat),
+          lng: parseFloat(userPosition.lng)
+        }}
+      />
+    )}
+
     {markers.map((marker, index) => {
       return (
         <InfoWindowMarker

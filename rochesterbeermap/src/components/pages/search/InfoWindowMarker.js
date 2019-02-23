@@ -31,11 +31,18 @@ class InfoWindowMarker extends Component {
       >
         {this.state.isOpen && (
           <InfoWindow
-            className="test"
             style={{ width: 100 }}
             onCloseClick={this.handleToggleClose}
           >
-            <p className="center">Hello</p>
+            <p className="center">
+              {marker.name}
+              <br />
+              {`${marker.address}\n${marker.city}, ${marker.state} ${
+                marker.zipcode
+              }`}
+              <br />
+              {marker.phone}
+            </p>
           </InfoWindow>
         )}
       </Marker>

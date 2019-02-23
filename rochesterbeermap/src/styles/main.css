@@ -41,19 +41,20 @@ nav .brand-logo {
   font-weight: 700;
 }
 
+.location-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* .location-container .address-container {
+}
+
+.location-container .distance-container {
+} */
+
 .get-directions:hover {
   cursor: pointer;
   color: #1565c0;
-}
-
-/**
-* Googlg maps InfoWindow overrides
-*/
-.gm-style-iw-d {
-  height: 50px;
-  width: 100px;
-  padding: 0;
-  overflow: hidden !important;
 }
 
 #loader {
@@ -144,7 +145,7 @@ nav .brand-logo {
 }
 
 #not-found-page {
-  margin-top: 10rem;
+  margin: 10rem 0 12rem 0;
 }
 
 /**
