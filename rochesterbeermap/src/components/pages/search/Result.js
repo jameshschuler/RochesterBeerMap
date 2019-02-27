@@ -58,12 +58,6 @@ const Result = ({
                 {city}, {state} {zipcode}
               </p>
             </div>
-            {/* {data && (
-              <div className="distance-container">
-                <p>{data.distance}</p>
-                <p>{data.duration}</p>
-              </div>
-            )} */}
           </div>
 
           <div className="hours">

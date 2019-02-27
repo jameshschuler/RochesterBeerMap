@@ -54,9 +54,6 @@ export const getBreweries = () => async (dispatch, getState) => {
     let breweries = [];
     const response = await db.collection("Breweries").get();
 
-    // TODO: send request to get distance for each brewery if there's
-    //https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=Washington,DC&destinations=New+York+City,NY&key=YOUR_API_KEY
-
     response.forEach(function(doc) {
       breweries.push({ id: doc.id, ...doc.data() });
     });
