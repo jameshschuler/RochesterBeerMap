@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 declare global {
   interface Window {
@@ -7,17 +7,63 @@ declare global {
 }
 
 const Map: React.FC = () => {
-  useEffect(() => {
-    // TODO: attempt to get user's location otherwise center on rochester ny
+  const [centerPosition, setCenterPosition] = useState({});
+  const [map, setMap] = React.useState<google.maps.Map | null>();
 
+  const getUserLocation = () => {
+    const promise = new Promise(function(resolve, reject) {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            resolve({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            });
+          },
+          error => {
+            console.log(error);
+
+            reject("Geolocation disabled.");
+          }
+        );
+      } else {
+        reject("Geolocation unavailable.");
+      }
+    });
+
+    return promise;
+  };
+
+  useEffect(() => {
     let google = window.google;
-    console.log(google);
+
     let map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: -34.397, lng: 150.644 },
       zoom: 8
     });
+
+    getUserLocation()
+      .then(value => {
+        console.log(map);
+        map!.setOptions({
+          center: value as google.maps.LatLng
+        });
+      })
+      .catch(error => {
+        map!.setOptions({
+          center: {
+            lat: 43.1566,
+            lng: -77.6088
+          }
+        });
+      });
+
+    setMap(map);
   }, []);
-  return <div id="map" />;
+  return (
+    <>
+      <div id="map" />
+    </>
+  );
 };
 
 export default Map;
