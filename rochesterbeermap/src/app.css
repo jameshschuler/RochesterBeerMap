@@ -18,3 +18,24 @@ body {
 #map {
   height: 100vh;
 }
+
+#slide-out {
+}
+
+#slide-out li {
+  padding-left: 1rem;
+}
+
+#slide-out li:hover {
+  background-color: #ee6e73;
+  cursor: pointer;
+  color: #fff;
+}
+
+nav a.sidenav-trigger {
+  display: block;
+}
+
+nav .brand-logo {
+  margin-left: 4rem;
+}

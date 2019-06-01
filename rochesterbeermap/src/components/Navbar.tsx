@@ -1,8 +1,13 @@
 // Import Materialize
 import * as M from "materialize-css";
 import React, { useEffect } from "react";
+import { Brewery } from "../App";
 
-const Navbar = () => {
+interface NavbarProps {
+  breweries: Array<Brewery>;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ breweries }) => {
   useEffect(() => {
     // Auto initialize all the things!
     M.AutoInit();
@@ -27,12 +32,9 @@ const Navbar = () => {
       </nav>
 
       <ul id="slide-out" className="sidenav">
-        <li>Testing</li>
-        <li>Testing 2</li>
-        <li>
-          <div className="divider" />
-        </li>
-        <li>Testing 3</li>
+        {breweries.map(brewery => {
+          return <li key={brewery.id}>{brewery.name}</li>;
+        })}
       </ul>
     </>
   );
