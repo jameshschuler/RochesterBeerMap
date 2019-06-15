@@ -1,4 +1,5 @@
-import firebase from "firebase";
+import * as firebase from "firebase/app";
+import "firebase/firestore";
 import "materialize-css/dist/css/materialize.min.css";
 import React, { useEffect, useState } from "react";
 import "./app.css";
@@ -31,6 +32,7 @@ const App = () => {
     const db = firebase.firestore();
 
     db.collection("breweries")
+      .orderBy("name", "asc")
       .get()
       .then(querySnapshot => {
         let temp = new Array<any>();

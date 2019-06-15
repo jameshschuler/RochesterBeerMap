@@ -19,17 +19,27 @@ body {
   height: 100vh;
 }
 
-#slide-out {
-}
-
-#slide-out li {
-  padding-left: 1rem;
-}
-
-#slide-out li:hover {
+#slide-out li.active {
   background-color: #ee6e73;
   cursor: pointer;
   color: #fff;
+}
+
+#slide-out li .collapsible-header:hover {
+  background-color: #ee6e73;
+  cursor: pointer;
+  color: #fff;
+}
+
+#slide-out li .collapsible-body {
+  background-color: #ddd;
+  padding-left: 1rem;
+}
+
+#slide-out li .collapsible-body .content {
+  display: flex;
+  flex-direction: column;
+  color: rgba(0, 0, 0, 0.87);
 }
 
 nav a.sidenav-trigger {
@@ -38,4 +48,20 @@ nav a.sidenav-trigger {
 
 nav .brand-logo {
   margin-left: 4rem;
+}
+
+.page-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.page-footer p {
+  margin: 0 0 0.5rem 0;
+}
+
+.mr-1 {
+  margin-right: 0.5rem;
 }
