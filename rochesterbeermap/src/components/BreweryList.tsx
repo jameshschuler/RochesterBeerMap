@@ -1,5 +1,5 @@
 import React from "react";
-import { Brewery } from "../App";
+import { Brewery } from "../types/Brewery";
 
 interface BreweryListProps {
   breweries: Array<Brewery>;
@@ -11,7 +11,7 @@ const BreweryList: React.FC<BreweryListProps> = ({ breweries }) => {
       {breweries.map(brewery => {
         return (
           <li key={brewery.id}>
-            <div className="collapsible-header">{brewery.name}</div>
+            <div className="collapsible-header">{brewery.breweryName}</div>
             <div className="collapsible-body">
               <div className="content">
                 <span>{brewery.phone}</span>
@@ -24,18 +24,9 @@ const BreweryList: React.FC<BreweryListProps> = ({ breweries }) => {
                     {brewery.website}
                   </a>
                 </span>
-                <span>{brewery.address}</span>
+                <span>{brewery.streetAddress}</span>
                 <span>
-                  {brewery.city}, {brewery.state} {brewery.zipcode}
-                </span>
-                <span>
-                  {brewery.food && <i className="fas fa-fw fa-utensils mr-1" />}
-                  {brewery.liquor && (
-                    <i className="fas fa-glass-martini-alt mr-1" />
-                  )}
-                  {brewery.wine && (
-                    <i className="fas fa-fw fa-wine-glass-alt" />
-                  )}
+                  {brewery.locality}, {brewery.state} {brewery.postalCode}
                 </span>
               </div>
             </div>

@@ -1,0 +1,29 @@
+export interface Brewery {
+  id: string;
+  breweryName: string;
+  latitude: number;
+  longitude: number;
+  website: string;
+  phone: string;
+  locality: string;
+  state: string;
+  streetAddress: string;
+  postalCode: string;
+  breweryId: string;
+  countryCode: string;
+  countryIsoCode: string;
+  countryName: string;
+  description: string;
+  displayName: string;
+  distance: string;
+  established: string;
+  hoursOfOperationExplicit: any;
+  isMassOwned: string;
+  isOrganic: string;
+  isoThree: string;
+  locationTypeDisplay: string;
+  name: string;
+  nameShortDisplay: string;
+  openToPublic: string;
+  yearOpened: string;
+}

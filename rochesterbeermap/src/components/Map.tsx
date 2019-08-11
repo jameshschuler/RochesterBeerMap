@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Brewery } from "../App";
+import React, { useEffect } from "react";
+import { Brewery } from "../types/Brewery";
 
 declare global {
   interface Window {
@@ -12,7 +12,6 @@ interface MapProps {
 }
 
 const Map: React.FC<MapProps> = ({ breweries }) => {
-  const [centerPosition, setCenterPosition] = useState({});
   const [map, setMap] = React.useState<google.maps.Map | null>();
 
   /**
@@ -46,30 +45,16 @@ const Map: React.FC<MapProps> = ({ breweries }) => {
    */
   const addBreweryMarkers = (map: google.maps.Map) => {
     let google = window.google;
-    const geocoder = new google.maps.Geocoder();
 
-    for (let { address, city, state, zipcode, name } of breweries) {
-      if (address !== "") {
-        let fullAddress = `${address} ${city}, ${state} ${zipcode}`;
-
-        geocoder.geocode(
-          { address: fullAddress },
-          (results: any, status: any) => {
-            if (status === "OK") {
-              const position = {
-                lat: results[0].geometry.location.lat(),
-                lng: results[0].geometry.location.lng()
-              };
-
-              const marker = new google.maps.Marker({
-                map,
-                title: name,
-                position
-              });
-            }
-          }
-        );
-      }
+    for (let { breweryName, latitude, longitude } of breweries) {
+      new google.maps.Marker({
+        map,
+        title: breweryName,
+        position: {
+          lat: latitude,
+          lng: longitude
+        }
+      });
     }
   };
 
@@ -88,7 +73,7 @@ const Map: React.FC<MapProps> = ({ breweries }) => {
           center: value as google.maps.LatLng
         });
 
-        const marker = new google.maps.Marker({
+        new google.maps.Marker({
           position: value,
           map: map,
           title: "You!",
@@ -105,7 +90,7 @@ const Map: React.FC<MapProps> = ({ breweries }) => {
           }
         });
 
-        const marker = new google.maps.Marker({
+        new google.maps.Marker({
           position: {
             lat: 43.1566,
             lng: -77.6088

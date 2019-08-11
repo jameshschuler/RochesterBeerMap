@@ -1,7 +1,7 @@
 // Import Materialize
 import * as M from "materialize-css";
 import React, { useEffect } from "react";
-import { Brewery } from "../App";
+import { Brewery } from "../types/Brewery";
 import BreweryList from "./BreweryList";
 
 interface NavbarProps {
@@ -21,7 +21,7 @@ const Navbar: React.FC<NavbarProps> = ({ breweries }) => {
           <a href="/" className="brand-logo">
             Rochester Beer Map
           </a>
-          <a href="#" data-target="slide-out" className="sidenav-trigger">
+          <a href="!#" data-target="slide-out" className="sidenav-trigger">
             <i className="material-icons">menu</i>
           </a>
         </div>
