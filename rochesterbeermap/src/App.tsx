@@ -1,31 +1,25 @@
 import "materialize-css/dist/css/materialize.min.css";
-import React, { useEffect, useState } from "react";
-import "./app.css";
-import Footer from "./components/Footer";
+import React from "react";
+import BreweryListView from "./components/BreweryListView";
+import Spinner from "./components/helpers/Spinner";
 import Map from "./components/Map";
 import Navbar from "./components/Navbar";
-import { getBreweryData } from "./dataService";
-import { Brewery } from "./types/Brewery";
+import BreweryContextProvider from "./contexts/BreweryContext";
+import "./styles/app.css";
 
 const App = () => {
-  const [breweries, setBreweries] = useState<Array<Brewery>>([]);
-
-  const getData = async () => {
-    const data = await getBreweryData();
-    setBreweries(data);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
   return (
     <div className="App">
-      <Navbar breweries={breweries} />
-      <div id="main">
-        {breweries && breweries.length > 0 && <Map breweries={breweries} />}
-      </div>
-      <Footer />
+      <BreweryContextProvider>
+        <Spinner />
+        <Navbar />
+        <div id="container">
+          <div className="row">
+            <BreweryListView />
+            <Map />
+          </div>
+        </div>
+      </BreweryContextProvider>
     </div>
   );
 };

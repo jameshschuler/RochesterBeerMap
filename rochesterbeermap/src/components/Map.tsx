@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Brewery } from "../types/Brewery";
 
 declare global {
   interface Window {
@@ -7,11 +6,9 @@ declare global {
   }
 }
 
-interface MapProps {
-  breweries: Array<Brewery>;
-}
+interface MapProps {}
 
-const Map: React.FC<MapProps> = ({ breweries }) => {
+const Map: React.FC<MapProps> = () => {
   const [map, setMap] = React.useState<google.maps.Map | null>();
 
   /**
@@ -46,16 +43,16 @@ const Map: React.FC<MapProps> = ({ breweries }) => {
   const addBreweryMarkers = (map: google.maps.Map) => {
     let google = window.google;
 
-    for (let { breweryName, latitude, longitude } of breweries) {
-      new google.maps.Marker({
-        map,
-        title: breweryName,
-        position: {
-          lat: latitude,
-          lng: longitude
-        }
-      });
-    }
+    // for (let { breweryName, latitude, longitude } of breweries) {
+    //   new google.maps.Marker({
+    //     map,
+    //     title: breweryName,
+    //     position: {
+    //       lat: latitude,
+    //       lng: longitude
+    //     }
+    //   });
+    // }
   };
 
   useEffect(() => {
@@ -107,7 +104,9 @@ const Map: React.FC<MapProps> = ({ breweries }) => {
   }, []);
   return (
     <>
-      <div id="map" />
+      <div className="col s4" id="map-view">
+        <div id="map" />
+      </div>
     </>
   );
 };
