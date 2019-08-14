@@ -1,9 +1,59 @@
-import React, { useContext } from "react";
-import { BreweryContext } from "../../contexts/BreweryContext";
-// TODO:
+import React from "react";
+
 const Spinner: React.FC = () => {
-  const { isLoading } = useContext(BreweryContext);
-  return isLoading ? <p>Loading...</p> : <p>Not Loading...</p>;
+  return (
+    <div className="spinner">
+      <div className="preloader-wrapper big active">
+        <div className="spinner-layer spinner-blue">
+          <div className="circle-clipper left">
+            <div className="circle" />
+          </div>
+          <div className="gap-patch">
+            <div className="circle" />
+          </div>
+          <div className="circle-clipper right">
+            <div className="circle" />
+          </div>
+        </div>
+
+        <div className="spinner-layer spinner-red">
+          <div className="circle-clipper left">
+            <div className="circle" />
+          </div>
+          <div className="gap-patch">
+            <div className="circle" />
+          </div>
+          <div className="circle-clipper right">
+            <div className="circle" />
+          </div>
+        </div>
+
+        <div className="spinner-layer spinner-yellow">
+          <div className="circle-clipper left">
+            <div className="circle" />
+          </div>
+          <div className="gap-patch">
+            <div className="circle" />
+          </div>
+          <div className="circle-clipper right">
+            <div className="circle" />
+          </div>
+        </div>
+
+        <div className="spinner-layer spinner-green">
+          <div className="circle-clipper left">
+            <div className="circle" />
+          </div>
+          <div className="gap-patch">
+            <div className="circle" />
+          </div>
+          <div className="circle-clipper right">
+            <div className="circle" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Spinner;

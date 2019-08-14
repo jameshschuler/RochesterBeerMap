@@ -6,10 +6,10 @@ import BreweryDetailView from "./BreweryDetailView";
 interface BreweryListProps {}
 
 const BreweryListView: React.FC = () => {
-  const { breweries } = useContext(BreweryContext) as ContextProps;
+  const { breweries, isLoading } = useContext(BreweryContext) as ContextProps;
 
   return (
-    <div className="col s8" id="brewery-list-view">
+    <div className="col m8 s12" id="brewery-list-view">
       <div className="row">
         {breweries.length ? (
           breweries.map((brewery, index) => {

@@ -104,7 +104,7 @@ const Map: React.FC<MapProps> = () => {
   }, []);
   return (
     <>
-      <div className="col s4" id="map-view">
+      <div className="col m4 s12" id="map-view">
         <div id="map" />
       </div>
     </>

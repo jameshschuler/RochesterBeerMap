@@ -4,15 +4,15 @@ body {
   padding: 0;
   height: 100vh;
 }
-
-.App {
+#container {
+  width: 100%;
 }
 
-#container {
+#content-container {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 0 0.5rem;
   height: 1000px;
-  width: 100%;
-  margin: 20px 0 50px 0;
-  padding-bottom: 20px;
 }
 
 #brewery-list-view {
@@ -20,9 +20,44 @@ body {
   max-height: 1000px;
 }
 
-#map-view {
-}
-
 #map-view #map {
   height: 1000px;
+}
+
+#brewery-list-view,
+#map-view {
+  max-height: 1000px;
+}
+
+#loading-screen-component {
+  height: 100vh;
+}
+
+#loading-screen-component #title {
+  margin-top: 25%;
+}
+
+#footer {
+  border-top: 1px solid black;
+  margin: 0.5rem 0;
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mb-0 {
+  margin-bottom: 0px;
+}
+
+@media only screen and (max-width: 600px) {
+  #map-view {
+    margin-bottom: 2rem;
+  }
+
+  #map-view #map {
+    height: 300px;
+  }
 }

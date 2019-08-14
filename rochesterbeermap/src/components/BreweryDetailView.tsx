@@ -7,7 +7,7 @@ interface BreweryDetailViewProps {
 
 const BreweryDetailView: React.FC<BreweryDetailViewProps> = () => {
   return (
-    <div className="col s4">
+    <div className="col l4 m6 s12">
       <div className="brewery-detail-view">
         <div className="card blue-grey darken-1">
           <div className="card-content white-text">
