@@ -13,7 +13,7 @@ const Navbar: React.FC<NavbarProps> = () => {
   return (
     <>
       <nav>
-        <div className="nav-wrapper">
+        <div className="nav-wrapper blue">
           <a href="/" className="brand-logo">
             Rochester Beer Map
           </a>

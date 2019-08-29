@@ -18,7 +18,8 @@ export const breweryReducer = (state: any, action: any) => {
         ...state,
         isLoading: false,
         isError: false,
-        breweries: action.payload
+        breweries: action.payload,
+        filteredBreweries: action.payload
       };
     case "FETCH_FAILURE":
       return {
@@ -28,9 +29,9 @@ export const breweryReducer = (state: any, action: any) => {
         error: action.error
       };
     case "FILTER_BREWERIES":
-      // TODO:
       return {
-        ...state
+        ...state,
+        filteredBreweries: action.payload
       };
     default:
       return state;

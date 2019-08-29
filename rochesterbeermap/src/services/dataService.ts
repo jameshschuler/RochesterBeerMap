@@ -1,7 +1,7 @@
 import * as firebase from "firebase/app";
 import "firebase/firestore";
-import { firebaseConfig } from "./config";
-import { Brewery } from "./types/Brewery";
+import { firebaseConfig } from "../config/firebase.config";
+import { Brewery } from "../types/Brewery";
 
 export const getBreweryData = async () => {
   // Initialize Firebase

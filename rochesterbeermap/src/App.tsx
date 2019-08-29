@@ -1,6 +1,6 @@
 import "materialize-css/dist/css/materialize.min.css";
 import React from "react";
-import Container from "./components/Container";
+import Container from "./components/layout/Container";
 import BreweryContextProvider from "./contexts/BreweryContext";
 import "./styles/app.css";
 

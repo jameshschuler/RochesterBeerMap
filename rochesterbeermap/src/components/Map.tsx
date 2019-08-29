@@ -1,4 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
+import { BreweryContext } from "../contexts/BreweryContext";
+import { ContextProps } from "../types/Context";
 
 declare global {
   interface Window {
@@ -9,6 +11,7 @@ declare global {
 interface MapProps {}
 
 const Map: React.FC<MapProps> = () => {
+  const { breweries, isLoading } = useContext(BreweryContext) as ContextProps;
   const [map, setMap] = React.useState<google.maps.Map | null>();
 
   /**
@@ -43,16 +46,16 @@ const Map: React.FC<MapProps> = () => {
   const addBreweryMarkers = (map: google.maps.Map) => {
     let google = window.google;
 
-    // for (let { breweryName, latitude, longitude } of breweries) {
-    //   new google.maps.Marker({
-    //     map,
-    //     title: breweryName,
-    //     position: {
-    //       lat: latitude,
-    //       lng: longitude
-    //     }
-    //   });
-    // }
+    for (let { breweryName, latitude, longitude } of breweries) {
+      new google.maps.Marker({
+        map,
+        title: breweryName,
+        position: {
+          lat: latitude,
+          lng: longitude
+        }
+      });
+    }
   };
 
   useEffect(() => {

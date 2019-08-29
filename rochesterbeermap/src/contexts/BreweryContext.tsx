@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useReducer } from "react";
-import { getBreweryData } from "../dataService";
 import { breweryReducer, initialState } from "../reducers/BreweryReducer";
+import { getBreweryData } from "../services/dataService";
 import { ContextProps } from "../types/Context";
 
 export const BreweryContext = createContext<Partial<ContextProps>>({});
@@ -19,7 +19,7 @@ const BreweryContextProvider: React.FC = (props: any) => {
         } catch (error) {
           dispatch({ type: "FETCH_FAILURE", error });
         }
-      }, 5000);
+      }, 1000);
     };
 
     fetchData();
