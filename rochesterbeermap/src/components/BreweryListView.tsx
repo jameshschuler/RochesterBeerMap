@@ -15,6 +15,17 @@ const BreweryListView: React.FC = () => {
   return (
     <div className="col m8 s12" id="brewery-list-view">
       <Filter />
+      <div
+        className="fixed-action-btn"
+        onClick={() => {
+          // TODO: add animation
+          document.getElementById("brewery-list-view")!.scrollTop = 0;
+        }}
+      >
+        <a className="btn-floating btn-large blue">
+          <i className="large material-icons">arrow_upward</i>
+        </a>
+      </div>
       <div className="row">
         {filteredBreweries.length ? (
           filteredBreweries.map((brewery, index) => {
