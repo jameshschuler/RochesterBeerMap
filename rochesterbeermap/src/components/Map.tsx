@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BreweryContext } from "../contexts/BreweryContext";
 import { ContextProps } from "../types/Context";
 
@@ -11,8 +11,11 @@ declare global {
 interface MapProps {}
 
 const Map: React.FC<MapProps> = () => {
-  const { breweries, isLoading } = useContext(BreweryContext) as ContextProps;
-  const [map, setMap] = React.useState<google.maps.Map | null>();
+  const { filteredBreweries, breweries } = useContext(
+    BreweryContext
+  ) as ContextProps;
+  const [map, setMap] = useState<google.maps.Map | undefined>();
+  const [mapMarkers, setMapMarkers] = useState([]);
 
   /**
    *
@@ -40,32 +43,48 @@ const Map: React.FC<MapProps> = () => {
   };
 
   /**
-   *
-   * @param map
+   * Checks filtered brewery list for a given brewery (matching breweryId and locality)
+   * @param breweryId
+   * @param locality
    */
-  const addBreweryMarkers = (map: google.maps.Map) => {
-    let google = window.google;
-
-    for (let { breweryName, latitude, longitude } of breweries) {
-      new google.maps.Marker({
-        map,
-        title: breweryName,
-        position: {
-          lat: latitude,
-          lng: longitude
-        }
-      });
+  const doesContain = (breweryId: string, locality: string) => {
+    for (let brewery of filteredBreweries) {
+      if (brewery.breweryId === breweryId && brewery.locality === locality) {
+        return true;
+      }
     }
+
+    return false;
   };
 
   useEffect(() => {
+    console.log("run once");
     let google = window.google;
 
     let map = new google.maps.Map(document.getElementById("map"), {
       zoom: 8
     });
 
-    addBreweryMarkers(map);
+    let markers = [];
+    for (let brewery of breweries) {
+      const marker = new google.maps.Marker({
+        map,
+        position: {
+          lat: brewery.latitude,
+          lng: brewery.longitude
+        },
+        title: brewery.breweryName,
+        breweryId: brewery.breweryId,
+        locality: brewery.locality
+      });
+
+      marker.addListener("click", (e: any) => {
+        // TODO: scroll brewery card into view on click
+        console.log(marker.breweryId);
+      });
+
+      markers.push(marker);
+    }
 
     getUserLocation()
       .then(value => {
@@ -96,7 +115,7 @@ const Map: React.FC<MapProps> = () => {
             lng: -77.6088
           },
           map: map,
-          title: "You!",
+          title: "Rochester, NY",
           icon: {
             url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
           }
@@ -104,7 +123,22 @@ const Map: React.FC<MapProps> = () => {
       });
 
     setMap(map);
+    setMapMarkers(markers as any);
   }, []);
+
+  useEffect(() => {
+    // TODO: can we make this more efficient?
+    for (let i = 0; i < mapMarkers.length; i++) {
+      let marker: any = mapMarkers[i];
+
+      if (doesContain(marker.breweryId, marker.locality)) {
+        marker.setMap(map);
+      } else {
+        marker.setMap(null);
+      }
+    }
+  }, [filteredBreweries]);
+
   return (
     <>
       <div className="col m4 s12" id="map-view">
