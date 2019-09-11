@@ -1,31 +1,38 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BreweryContext } from "../contexts/BreweryContext";
 import { ContextProps } from "../types/Context";
 import BreweryDetailView from "./BreweryDetailView";
 import Filter from "./Filter";
+import FloatingActionButton from "./FloatingActionButton";
 import Alert from "./helpers/Alert";
 
 interface BreweryListProps {}
 
 const BreweryListView: React.FC = () => {
-  const { filteredBreweries, isLoading } = useContext(
-    BreweryContext
-  ) as ContextProps;
+  const { filteredBreweries } = useContext(BreweryContext) as ContextProps;
+
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    let element = document.getElementById("brewery-list-view");
+
+    element!.addEventListener("scroll", () => {
+      let scrollTop = element!.scrollTop;
+
+      if (scrollTop % 100 === 0) {
+        if (scrollTop >= 200) {
+          setVisible(true);
+        } else if (scrollTop <= 200) {
+          setVisible(false);
+        }
+      }
+    });
+  }, []);
 
   return (
     <div className="col m8 s12" id="brewery-list-view">
       <Filter />
-      <div
-        className="fixed-action-btn"
-        onClick={() => {
-          // TODO: add animation
-          document.getElementById("brewery-list-view")!.scrollTop = 0;
-        }}
-      >
-        <a className="btn-floating btn-large blue">
-          <i className="large material-icons">arrow_upward</i>
-        </a>
-      </div>
+      <FloatingActionButton visible={visible} />
       <div className="row">
         {filteredBreweries.length ? (
           filteredBreweries.map((brewery, index) => {

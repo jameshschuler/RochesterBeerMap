@@ -12,15 +12,12 @@ const BreweryContextProvider: React.FC = (props: any) => {
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: "FETCH_INIT" });
-      // TODO: remove this setTimeout function
-      setTimeout(async () => {
-        try {
-          const result = await getBreweryData();
-          dispatch({ type: "FETCH_SUCCESS", payload: result });
-        } catch (error) {
-          dispatch({ type: "FETCH_FAILURE", error });
-        }
-      }, 1000);
+      try {
+        const result = await getBreweryData();
+        dispatch({ type: "FETCH_SUCCESS", payload: result });
+      } catch (error) {
+        dispatch({ type: "FETCH_FAILURE", error });
+      }
     };
 
     fetchData();
@@ -34,6 +31,8 @@ const BreweryContextProvider: React.FC = (props: any) => {
       ) {
         return true;
       }
+
+      return false;
     });
     dispatch({ type: "FILTER_BREWERIES", payload: filtered });
   };

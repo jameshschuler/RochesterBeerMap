@@ -18,7 +18,7 @@ const Map: React.FC<MapProps> = () => {
   const [mapMarkers, setMapMarkers] = useState([]);
 
   /**
-   *
+   * Checks if the user has enabled geolocation in their browser
    */
   const getUserLocation = () => {
     const promise = new Promise(function(resolve, reject) {
@@ -48,17 +48,20 @@ const Map: React.FC<MapProps> = () => {
    * @param locality
    */
   const doesContain = (breweryId: string, locality: string) => {
-    for (let brewery of filteredBreweries) {
+    let result = filteredBreweries.filter(brewery => {
       if (brewery.breweryId === breweryId && brewery.locality === locality) {
         return true;
       }
-    }
+      return false;
+    });
 
-    return false;
+    return result.length > 0;
   };
 
+  /**
+   * Runs once when the component is mounted
+   */
   useEffect(() => {
-    console.log("run once");
     let google = window.google;
 
     let map = new google.maps.Map(document.getElementById("map"), {
@@ -78,14 +81,32 @@ const Map: React.FC<MapProps> = () => {
         locality: brewery.locality
       });
 
-      marker.addListener("click", (e: any) => {
-        // TODO: scroll brewery card into view on click
-        console.log(marker.breweryId);
+      marker.addListener("click", () => {
+        // TODO: should we filter to the clicked brewery or scroll to it?
+        // TODO: ??
+        // const breweryListView = document.getElementById("brewery-list-view");
+        // breweryListView!
+        //   .querySelectorAll(".brewery-detail-view.selected")
+        //   .forEach(element => {
+        //     element.classList.remove("selected");
+        //   });
+        // const element = breweryListView!.querySelector(
+        //   `.brewery[data-brewery-id="${marker.breweryId}"]`
+        // );
+        // if (element) {
+        //   element
+        //     .querySelector(".brewery-detail-view")!
+        //     .classList.add("selected");
+        //   element.scrollIntoView({ behavior: "smooth" });
+        // }
       });
 
       markers.push(marker);
     }
 
+    /**
+     * Attempts to get the user's location and add a marker for their location.
+     */
     getUserLocation()
       .then(value => {
         map!.setOptions({
@@ -122,12 +143,16 @@ const Map: React.FC<MapProps> = () => {
         });
       });
 
+    // Update state
     setMap(map);
     setMapMarkers(markers as any);
   }, []);
 
+  /**
+   * Runs any time the filtered list of breweries is updated.
+   * Toggles the map markers based on which breweries are found in the filteredBreweries array
+   */
   useEffect(() => {
-    // TODO: can we make this more efficient?
     for (let i = 0; i < mapMarkers.length; i++) {
       let marker: any = mapMarkers[i];
 
