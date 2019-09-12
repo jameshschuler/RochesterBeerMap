@@ -1,38 +1,27 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { BreweryContext } from "../contexts/BreweryContext";
 import { ContextProps } from "../types/Context";
+import { scrollTo } from "../utilities/animation";
 import BreweryDetailView from "./BreweryDetailView";
 import Filter from "./Filter";
-import FloatingActionButton from "./FloatingActionButton";
-import Alert from "./helpers/Alert";
+import Alert from "./ui/Alert";
+import FloatingActionButton from "./ui/FloatingActionButton";
 
 interface BreweryListProps {}
 
-const BreweryListView: React.FC = () => {
+const BreweryListView: React.FC<BreweryListProps> = () => {
   const { filteredBreweries } = useContext(BreweryContext) as ContextProps;
-
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    let element = document.getElementById("brewery-list-view");
-
-    element!.addEventListener("scroll", () => {
-      let scrollTop = element!.scrollTop;
-
-      if (scrollTop % 100 === 0) {
-        if (scrollTop >= 200) {
-          setVisible(true);
-        } else if (scrollTop <= 200) {
-          setVisible(false);
-        }
-      }
-    });
-  }, []);
 
   return (
     <div className="col m8 s12" id="brewery-list-view">
       <Filter />
-      <FloatingActionButton visible={visible} />
+      <FloatingActionButton
+        appearAt={200}
+        disappearAt={200}
+        action={() =>
+          scrollTo(document.getElementById("brewery-list-view")!, 0, 1000)
+        }
+      />
       <div className="row">
         {filteredBreweries.length ? (
           filteredBreweries.map((brewery, index) => {

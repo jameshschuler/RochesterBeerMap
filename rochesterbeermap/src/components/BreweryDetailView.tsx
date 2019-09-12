@@ -11,7 +11,10 @@ const BreweryDetailView: React.FC<BreweryDetailViewProps> = ({ brewery }) => {
       <div className="brewery-detail-view">
         <div className="card">
           <div className="card-content">
-            <span className="card-title">{brewery.breweryName}</span>
+            <span className="card-title text-bold-500">
+              {brewery.breweryName}
+              <hr />
+            </span>
             <div className="brewery-information">
               {brewery.phone && (
                 <span>
@@ -19,8 +22,12 @@ const BreweryDetailView: React.FC<BreweryDetailViewProps> = ({ brewery }) => {
                 </span>
               )}
               <span>
-                <b>Address:</b> {brewery.streetAddress} {brewery.locality},{" "}
-                {brewery.state} {brewery.countryIsoCode} {brewery.postalCode}
+                <b>Address:</b>
+              </span>
+              <span>{brewery.streetAddress}</span>
+              <span>
+                {brewery.locality}, {brewery.state} {brewery.countryIsoCode}{" "}
+                {brewery.postalCode}
               </span>
               {brewery.established !== "" && (
                 <span>
@@ -36,14 +43,19 @@ const BreweryDetailView: React.FC<BreweryDetailViewProps> = ({ brewery }) => {
               )}
               {brewery.distance !== "" && (
                 <span>
-                  <b>From Rochester: </b>
+                  <b>Distance (from Rochester): </b>
                   {brewery.distance} mi.
                 </span>
               )}
             </div>
           </div>
-          <div className="card-action">
-            <a target="_blank" rel="noopener noreferrer" href={brewery.website}>
+          <div className="card-action center-align blue">
+            <a
+              target="_blank"
+              className="white-text text-bold-500"
+              rel="noopener noreferrer"
+              href={brewery.website}
+            >
               Visit
             </a>
           </div>

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { BreweryContext } from "../contexts/BreweryContext";
 import { ContextProps } from "../types/Context";
+import { getUserLocation } from "../utilities/userLocation";
 
 declare global {
   interface Window {
@@ -14,40 +15,23 @@ const Map: React.FC<MapProps> = () => {
   const { filteredBreweries, breweries } = useContext(
     BreweryContext
   ) as ContextProps;
+
+  // State
   const [map, setMap] = useState<google.maps.Map | undefined>();
   const [mapMarkers, setMapMarkers] = useState([]);
 
-  /**
-   * Checks if the user has enabled geolocation in their browser
-   */
-  const getUserLocation = () => {
-    const promise = new Promise(function(resolve, reject) {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          position => {
-            resolve({
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            });
-          },
-          error => {
-            reject("Geolocation disabled. " + error);
-          }
-        );
-      } else {
-        reject("Geolocation unavailable.");
-      }
-    });
-
-    return promise;
+  const rochesterPosition = {
+    lat: 43.1566,
+    lng: -77.6088
   };
 
   /**
-   * Checks filtered brewery list for a given brewery (matching breweryId and locality)
+   * Checks filtered brewery list for a given brewery (matching breweryId and locality).
    * @param breweryId
    * @param locality
+   * @returns whether breweryId / locality combination was found.
    */
-  const doesContain = (breweryId: string, locality: string) => {
+  const doesContain = (breweryId: string, locality: string): boolean => {
     let result = filteredBreweries.filter(brewery => {
       if (brewery.breweryId === breweryId && brewery.locality === locality) {
         return true;
@@ -82,23 +66,7 @@ const Map: React.FC<MapProps> = () => {
       });
 
       marker.addListener("click", () => {
-        // TODO: should we filter to the clicked brewery or scroll to it?
-        // TODO: ??
-        // const breweryListView = document.getElementById("brewery-list-view");
-        // breweryListView!
-        //   .querySelectorAll(".brewery-detail-view.selected")
-        //   .forEach(element => {
-        //     element.classList.remove("selected");
-        //   });
-        // const element = breweryListView!.querySelector(
-        //   `.brewery[data-brewery-id="${marker.breweryId}"]`
-        // );
-        // if (element) {
-        //   element
-        //     .querySelector(".brewery-detail-view")!
-        //     .classList.add("selected");
-        //   element.scrollIntoView({ behavior: "smooth" });
-        // }
+        // TODO: filter to just clicked brewery
       });
 
       markers.push(marker);
@@ -122,19 +90,13 @@ const Map: React.FC<MapProps> = () => {
           }
         });
       })
-      .catch(error => {
+      .catch(() => {
         map!.setOptions({
-          center: {
-            lat: 43.1566,
-            lng: -77.6088
-          }
+          center: rochesterPosition
         });
 
         new google.maps.Marker({
-          position: {
-            lat: 43.1566,
-            lng: -77.6088
-          },
+          position: rochesterPosition,
           map: map,
           title: "Rochester, NY",
           icon: {

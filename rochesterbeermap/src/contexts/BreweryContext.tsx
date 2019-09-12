@@ -23,18 +23,22 @@ const BreweryContextProvider: React.FC = (props: any) => {
     fetchData();
   }, []);
 
-  const filterBreweries = (query: string) => {
-    const filtered = breweries.breweries.filter((brewery: Brewery) => {
-      if (
-        brewery.breweryName.toLowerCase().startsWith(query.toLowerCase()) ||
-        brewery.locality.toLowerCase().startsWith(query.toLowerCase())
-      ) {
-        return true;
-      }
+  /**
+   * Filters the brewery list by brewery name or city
+   * @param query - search criteria entered by user
+   */
+  const filterBreweries = (query: string): void => {
+    let payload = breweries.breweries as Array<Brewery>;
+    if (query) {
+      payload = breweries.breweries.filter((brewery: Brewery) => {
+        return (
+          brewery.breweryName.toLowerCase().startsWith(query.toLowerCase()) ||
+          brewery.locality.toLowerCase().startsWith(query.toLowerCase())
+        );
+      });
+    }
 
-      return false;
-    });
-    dispatch({ type: "FILTER_BREWERIES", payload: filtered });
+    dispatch({ type: "FILTER_BREWERIES", payload });
   };
 
   return (
