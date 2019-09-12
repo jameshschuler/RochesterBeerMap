@@ -12,7 +12,6 @@ export const getBreweryData = async () => {
   await db
     .collection("breweries")
     .orderBy("breweryName", "asc")
-
     .get()
     .then(querySnapshot => {
       querySnapshot.forEach(doc => {

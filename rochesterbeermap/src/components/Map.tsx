@@ -12,7 +12,7 @@ declare global {
 interface MapProps {}
 
 const Map: React.FC<MapProps> = () => {
-  const { filteredBreweries, breweries } = useContext(
+  const { filteredBreweries, breweries, filterBreweries } = useContext(
     BreweryContext
   ) as ContextProps;
 
@@ -60,13 +60,16 @@ const Map: React.FC<MapProps> = () => {
           lat: brewery.latitude,
           lng: brewery.longitude
         },
-        title: brewery.breweryName,
-        breweryId: brewery.breweryId,
-        locality: brewery.locality
+        title: `${brewery.breweryName} \n${brewery.locality}, ${brewery.state}`,
+        breweryName: brewery.breweryName,
+        locality: brewery.locality,
+        breweryId: brewery.breweryId
       });
 
       marker.addListener("click", () => {
-        // TODO: filter to just clicked brewery
+        filterBreweries(marker.breweryName);
+        const element = document.getElementById("filter") as HTMLInputElement;
+        element!.value = marker.breweryName;
       });
 
       markers.push(marker);
