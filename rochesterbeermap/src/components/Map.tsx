@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { BreweryContext } from "../contexts/BreweryContext";
 import { ContextProps } from "../types/Context";
+import CustomMarker from "../types/CustomMarker";
 import { getUserLocation } from "../utilities/userLocation";
 
 declare global {
@@ -18,7 +19,7 @@ const Map: React.FC<MapProps> = () => {
 
   // State
   const [map, setMap] = useState<google.maps.Map | undefined>();
-  const [mapMarkers, setMapMarkers] = useState([]);
+  const [mapMarkers, setMapMarkers] = useState<Array<CustomMarker>>([]);
 
   const rochesterPosition = {
     lat: 43.1566,
@@ -43,28 +44,25 @@ const Map: React.FC<MapProps> = () => {
   };
 
   /**
-   * Runs once when the component is mounted
+   * Loops through breweries and creates a CustomMarker object for each one.
+   * @param map
    */
-  useEffect(() => {
-    let google = window.google;
+  const createMapMarkers = (map: google.maps.Map) => {
+    const markers = new Array<CustomMarker>();
 
-    let map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 8
-    });
-
-    let markers = [];
     for (let brewery of breweries) {
-      const marker = new google.maps.Marker({
+      const marker = new CustomMarker(
         map,
-        position: {
+        {
           lat: brewery.latitude,
           lng: brewery.longitude
         },
-        title: `${brewery.breweryName} \n${brewery.locality}, ${brewery.state}`,
-        breweryName: brewery.breweryName,
-        locality: brewery.locality,
-        breweryId: brewery.breweryId
-      });
+        google.maps.Animation.DROP,
+        `${brewery.breweryName} \n${brewery.locality}, ${brewery.state}`,
+        brewery.breweryId,
+        brewery.breweryName,
+        brewery.locality
+      );
 
       marker.addListener("click", () => {
         filterBreweries(marker.breweryName);
@@ -75,17 +73,32 @@ const Map: React.FC<MapProps> = () => {
       markers.push(marker);
     }
 
+    return markers;
+  };
+
+  /**
+   * Runs once when the component is mounted
+   */
+  useEffect(() => {
+    let google = window.google;
+
+    let map = new google.maps.Map(document.getElementById("map"), {
+      zoom: 8
+    });
+
+    const markers = createMapMarkers(map);
+
     /**
      * Attempts to get the user's location and add a marker for their location.
      */
     getUserLocation()
-      .then(value => {
+      .then(coords => {
         map!.setOptions({
-          center: value as google.maps.LatLng
+          center: coords as google.maps.LatLng
         });
 
         new google.maps.Marker({
-          position: value,
+          position: coords,
           map: map,
           title: "You!",
           icon: {
@@ -118,11 +131,9 @@ const Map: React.FC<MapProps> = () => {
    * Toggles the map markers based on which breweries are found in the filteredBreweries array
    */
   useEffect(() => {
-    for (let i = 0; i < mapMarkers.length; i++) {
-      let marker: any = mapMarkers[i];
-
+    for (let marker of mapMarkers) {
       if (doesContain(marker.breweryId, marker.locality)) {
-        marker.setMap(map);
+        marker.setMap(map!);
       } else {
         marker.setMap(null);
       }

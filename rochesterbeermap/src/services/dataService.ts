@@ -2,8 +2,14 @@ import * as firebase from "firebase/app";
 import "firebase/firestore";
 import { firebaseConfig } from "../config/firebase.config";
 import { Brewery } from "../types/Brewery";
+import LocalStorageService from "./localStorageService";
 
 export const getBreweryData = async () => {
+  let savedBreweries = LocalStorageService.loadData("breweryData") as Brewery[];
+  if (savedBreweries && savedBreweries.length > 0) {
+    return savedBreweries;
+  }
+
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
@@ -21,6 +27,8 @@ export const getBreweryData = async () => {
         } as Brewery);
       });
     });
+
+  LocalStorageService.saveData("breweryData", breweries);
 
   return breweries;
 };

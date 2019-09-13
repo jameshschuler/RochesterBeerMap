@@ -12,7 +12,7 @@ export const getUserLocation = () => {
           });
         },
         error => {
-          reject("Geolocation disabled. " + error);
+          reject(`Geolocation disabled. ${error}`);
         }
       );
     } else {

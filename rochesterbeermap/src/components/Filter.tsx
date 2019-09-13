@@ -31,6 +31,7 @@ const Filter: React.FC = () => {
               type="text"
               placeholder="Filter by name or city..."
               onKeyUp={filter}
+              autoComplete="off"
             />
             <i className="material-icons prefix small" onClick={() => clear()}>
               clear
