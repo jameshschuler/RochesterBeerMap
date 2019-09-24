@@ -1,3 +1,5 @@
+import { ActionType } from "../../types/Context";
+
 export const initialState = {
   isLoading: false,
   isError: false,
@@ -7,13 +9,13 @@ export const initialState = {
 
 export const breweryReducer = (state: any, action: any) => {
   switch (action.type) {
-    case "FETCH_INIT":
+    case ActionType.FETCH_INIT:
       return {
         ...state,
         isLoading: true,
         isError: false
       };
-    case "FETCH_SUCCESS":
+    case ActionType.FETCH_SUCCESS:
       return {
         ...state,
         isLoading: false,
@@ -21,14 +23,14 @@ export const breweryReducer = (state: any, action: any) => {
         breweries: action.payload,
         filteredBreweries: action.payload
       };
-    case "FETCH_FAILURE":
+    case ActionType.FETCH_FAILURE:
       return {
         ...state,
         isLoading: false,
         isError: true,
         error: action.error
       };
-    case "FILTER_BREWERIES":
+    case ActionType.FILTER_BREWERIES:
       return {
         ...state,
         filteredBreweries: action.payload

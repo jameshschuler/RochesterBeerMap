@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { BreweryContext } from "../contexts/BreweryContext";
+import { BreweryContext } from "../store/contexts/BreweryContext";
 import { ContextProps } from "../types/Context";
 
 const Filter: React.FC = () => {

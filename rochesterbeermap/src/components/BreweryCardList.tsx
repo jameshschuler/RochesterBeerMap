@@ -1,15 +1,15 @@
 import React, { useContext } from "react";
-import { BreweryContext } from "../contexts/BreweryContext";
+import { BreweryContext } from "../store/contexts/BreweryContext";
 import { ContextProps } from "../types/Context";
 import { scrollTo } from "../utilities/animation";
-import BreweryDetailView from "./BreweryDetailView";
+import BreweryCard from "./BreweryCard";
 import Filter from "./Filter";
 import Alert from "./ui/Alert";
 import FloatingActionButton from "./ui/FloatingActionButton";
 
-interface BreweryListProps {}
+interface BreweryCardListProps {}
 
-const BreweryListView: React.FC<BreweryListProps> = () => {
+const BreweryCardList: React.FC<BreweryCardListProps> = () => {
   const { filteredBreweries } = useContext(BreweryContext) as ContextProps;
 
   return (
@@ -25,7 +25,7 @@ const BreweryListView: React.FC<BreweryListProps> = () => {
       <div className="row">
         {filteredBreweries.length ? (
           filteredBreweries.map((brewery, index) => {
-            return <BreweryDetailView brewery={brewery} key={index} />;
+            return <BreweryCard brewery={brewery} key={index} />;
           })
         ) : (
           <Alert
@@ -37,4 +37,4 @@ const BreweryListView: React.FC<BreweryListProps> = () => {
     </div>
   );
 };
-export default BreweryListView;
+export default BreweryCardList;

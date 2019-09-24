@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { BreweryContext } from "../../contexts/BreweryContext";
-import BreweryListView from "../BreweryListView";
+import { BreweryContext } from "../../store/contexts/BreweryContext";
+import BreweryCardList from "../BreweryCardList";
 import Map from "../Map";
 import LoadingScreen from "../ui/LoadingScreen";
 import Footer from "./Footer";
@@ -18,7 +18,7 @@ const Container: React.FC = () => {
             <Navbar />
             <div id="content-container">
               <Map />
-              <BreweryListView />
+              <BreweryCardList />
             </div>
             <Footer />
           </>

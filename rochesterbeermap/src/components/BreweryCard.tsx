@@ -1,11 +1,11 @@
 import React from "react";
 import { Brewery } from "../types/Brewery";
 
-interface BreweryDetailViewProps {
+interface BreweryCardProps {
   brewery: Brewery;
 }
 
-const BreweryDetailView: React.FC<BreweryDetailViewProps> = ({ brewery }) => {
+const BreweryCard: React.FC<BreweryCardProps> = ({ brewery }) => {
   return (
     <div className="col l4 m6 s12 brewery" data-brewery-id={brewery.breweryId}>
       <div className="brewery-detail-view">
@@ -64,4 +64,4 @@ const BreweryDetailView: React.FC<BreweryDetailViewProps> = ({ brewery }) => {
     </div>
   );
 };
-export default BreweryDetailView;
+export default BreweryCard;

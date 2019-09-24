@@ -7,3 +7,10 @@ export type ContextProps = {
   dispatch?: any;
   isLoading: boolean;
 };
+
+export enum ActionType {
+  FETCH_INIT = "FETCH_INIT",
+  FETCH_SUCCESS = "FETCH_SUCCESS",
+  FETCH_FAILURE = "FETCH_FAILURE",
+  FILTER_BREWERIES = "FILTER_BREWERIES"
+}
